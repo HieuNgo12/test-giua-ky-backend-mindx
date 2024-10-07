@@ -7,6 +7,9 @@ const personalInfo = new mongoose.Schema({
   nationality: { type: String},
   academicProcess: { type: String },
   pesronalInfoId: { type: String },
+  user: {
+    ref: "user",
+  },
 });
 
 // định nghĩa model cần truyền với phương thức model và các tham số lần lượt: tên collections, schema của document

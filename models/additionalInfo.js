@@ -4,6 +4,9 @@ const additionalInfo = new mongoose.Schema({
   additionalInfoId: { type: String },
   hobbies: { type: [String] },
   personalGoal: { type: [String] },
+  user: {
+    ref: "user",
+  },
 });
 
 // định nghĩa model cần truyền với phương thức model và các tham số lần lượt: tên collections, schema của document

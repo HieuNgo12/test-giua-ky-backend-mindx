@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   additionalInfo: { type: String, ref: "additionalInfo" },
   username: { type: String },
   password: { type: String },
+  email: {type: String}
 });
 
 // định nghĩa model cần truyền với phương thức model và các tham số lần lượt: tên collections, schema của document

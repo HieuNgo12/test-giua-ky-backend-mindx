@@ -6,7 +6,9 @@ const workProcessModel = new mongoose.Schema({
   dateOfEnd: { type: Date},
   companyName: { type: String},
   role: { type: String, enum: ["Manager", "Employee", "Supervisor"]},
-
+  user: {
+    ref: "user",
+  },
 });
 
 // định nghĩa model cần truyền với phương thức model và các tham số lần lượt: tên collections, schema của document

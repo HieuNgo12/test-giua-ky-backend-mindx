@@ -5,7 +5,9 @@ const workInfoModel = new mongoose.Schema({
   personalProject: { type: String, ref: "personalInfo" },
   workProcess: { type: String, ref: "workinfo" },
   personalSkill: { type: String},
-
+  user: {
+    ref: "user",
+  },
 });
 
 // định nghĩa model cần truyền với phương thức model và các tham số lần lượt: tên collections, schema của document

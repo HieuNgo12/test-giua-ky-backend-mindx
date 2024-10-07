@@ -56,7 +56,7 @@ exports.deletePersonalProject = async (req, res, next) => {
     const filter = {
       workInfoId: req.params.workInfoId,
     };
-    const personalProject = await PersonalProjectModel.find(filter).populate(
+    const personalProject = await PersonalProject.find(filter).populate(
         "user"
       );
     verifyIfUserCanDelete(req, res, filter, personalProject, PersonalProject);

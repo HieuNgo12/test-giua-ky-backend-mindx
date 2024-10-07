@@ -7,6 +7,8 @@ const workProcessModel = new mongoose.Schema({
   companyName: { type: String},
   role: { type: String, enum: ["Manager", "Employee", "Supervisor"]},
   user: {
+    type: mongoose.Schema.Types.ObjectId, // Make sure this line is correct
+
     ref: "user",
   },
 });

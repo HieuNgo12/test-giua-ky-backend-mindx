@@ -5,6 +5,8 @@ const additionalInfo = new mongoose.Schema({
   hobbies: { type: [String] },
   personalGoal: { type: [String] },
   user: {
+    type: mongoose.Schema.Types.ObjectId, // Make sure this line is correct
+
     ref: "user",
   },
 });

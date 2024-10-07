@@ -7,9 +7,9 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var personalProjectRouter = require("./routes/personalProject");
-var workInfoRouter = require("./routes/workInfoRouter");
-var workProcessRouter = require("./routes/workProcessRouter");
-var additionalInfoRouter = require("./routes/additionalInfoRouter");
+var workInfoRouter = require("./routes/workInfo");
+var workProcessRouter = require("./routes/workProcess");
+var additionalInfoRouter = require("./routes/additionalInfo");
 
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -44,7 +44,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/user", usersRouter);
 app.use("/", personalProjectRouter);
 app.use("/", workInfoRouter);
 app.use("/", workProcessRouter);

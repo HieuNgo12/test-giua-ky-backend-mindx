@@ -6,6 +6,8 @@ const workInfoModel = new mongoose.Schema({
   workProcess: { type: String, ref: "workinfo" },
   personalSkill: { type: String},
   user: {
+    type: mongoose.Schema.Types.ObjectId, // Make sure this line is correct
+
     ref: "user",
   },
 });

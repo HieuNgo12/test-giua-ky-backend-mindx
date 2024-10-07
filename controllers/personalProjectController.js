@@ -1,5 +1,4 @@
 const PersonalProject = require("../models/personalProject");
-const WorkInfoModel = require("../models/workInfo");
 
 exports.getPersonalProject = async (req, res, next) => {
   try {
@@ -19,11 +18,11 @@ exports.getPersonalProject = async (req, res, next) => {
   }
 };
 
-exports.createWorkInfo = async (req, res, next) => {
+exports.createPersonalProject = async (req, res, next) => {
   try {
-    const workInfo = await PersonalProject.create(req.body);
+    const personalProject = await PersonalProject.create(req.body);
     res.status(201).send({
-      data: workInfo,
+      data: personalProject,
       message: "Working Infomation created successfully!",
       success: true,
     });
@@ -35,13 +34,15 @@ exports.createWorkInfo = async (req, res, next) => {
     });
   }
 };
-exports.updateWorkInfo = async (req, res, next) => {
+exports.updatePersonalProject = async (req, res, next) => {
   try {
     const filter = {
-      workInfoId: req.params.workInfoId,
+      personalProjectId: req.params.personalProjectId,
     };
-    const personalInfo = await WorkInfoModel.find(filter).populate("user");
-    verifyIfUser(req, res, filter, personalInfo, PersonalInfoModel);
+    const personalInfo = await PersonalProject.find(filter).populate(
+      "user"
+    );
+    verifyIfUser(req, res, filter, personalInfo, PersonalProject);
   } catch (e) {
     res.status(401).send({
       message: "Working Infomation updated unsuccessfully!",
@@ -50,16 +51,17 @@ exports.updateWorkInfo = async (req, res, next) => {
   }
 };
 
-exports.deleteWorkInfo = async (req, res, next) => {
+exports.deletePersonalProject = async (req, res, next) => {
   try {
-    const workInfo = await PersonalProject.delete({
+    const filter = {
       workInfoId: req.params.workInfoId,
-    });
-    res.status(201).send({
-      data: workInfo,
-      message: "Working Infomation deleted successfully!",
-      success: true,
-    });
+    };
+    const personalProject = await PersonalProjectModel.find(filter).populate(
+        "user"
+      );
+    verifyIfUserCanDelete(req, res, filter, personalProject, PersonalProject);
+
+
   } catch (e) {
     res.status(401).send({
       message: "Working Infomation deleted unsuccessfully!",

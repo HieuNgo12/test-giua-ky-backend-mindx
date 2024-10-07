@@ -1,4 +1,4 @@
-const WorkInfoModel = require("../models/workInfo");
+const WorkInfoModel = require("../models/workProcess");
 const WorkProcessModel = require("../models/workProcess");
 
 exports.getWorkProcess = async (req, res, next) => {
@@ -6,14 +6,14 @@ exports.getWorkProcess = async (req, res, next) => {
     WorkProcessModel.find({}).then((data) =>
       res.status(200).send({
         data: data,
-        message: "Working Infomation found successfully!",
+        message: "Working Process found successfully!",
         success: true,
       })
     );
   } catch (e) {
     res.status(401).send({
       error: e.message,
-      message: "Working Infomation found successfully!",
+      message: "Working Process found successfully!",
       success: false,
     });
   }
@@ -21,16 +21,16 @@ exports.getWorkProcess = async (req, res, next) => {
 
 exports.createWorkProcess = async (req, res, next) => {
   try {
-    const workInfo = await WorkInfoModel.create(req.body);
+    const workProcess = await WorkInfoModel.create(req.body);
     res.status(201).send({
-      data: workInfo,
-      message: "Working Infomation created successfully!",
+      data: workProcess,
+      message: "Working Process created successfully!",
       success: true,
     });
   } catch (e) {
     res.status(401).send({
       error: e.message,
-      message: "Working Infomation created unsuccessfully",
+      message: "Working Process created unsuccessfully",
       success: false,
     });
   }
@@ -38,13 +38,13 @@ exports.createWorkProcess = async (req, res, next) => {
 exports.updateWorkProcess = async (req, res, next) => {
   try {
     const filter = {
-        workInfoId: req.params.workInfoId,
-      }
-    const workInfo = await WorkInfoModel.find(filter).populate("user");
-    verifyIfUser(req, res, filter, workInfo, WorkInfoModel);
+      workProcessId: req.params.workProcessId,
+    };
+    const workProcess = await WorkInfoModel.find(filter).populate("user");
+    verifyIfUser(req, res, filter, workProcess, WorkInfoModel);
   } catch (e) {
     res.status(401).send({
-      message: "Working Infomation updated unsuccessfully!",
+      message: "Working Process updated unsuccessfully!",
       success: true,
     });
   }
@@ -52,17 +52,16 @@ exports.updateWorkProcess = async (req, res, next) => {
 
 exports.deleteWorkProcess = async (req, res, next) => {
   try {
-    const workInfo = await WorkInfoModel.deleteOne({
-      workInfoId: req.params.workInfoId,
-    });
-    res.status(201).send({
-      data: workInfo,
-      message: "Working Infomation deleted successfully!",
-      success: true,
-    });
+    const filter = {
+      workProcessId: req.params.workProcessId,
+    };
+    const workProcess = await WorkProcessModel.find(filter).populate("user");
+
+    verifyIfUserCanDelete(req, res, filter, workProcess, WorkProcessModel);
+
   } catch (e) {
     res.status(401).send({
-      message: "Working Infomation deleted unsuccessfully!",
+      message: "Working Process deleted unsuccessfully!",
       success: true,
     });
   }

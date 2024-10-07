@@ -51,14 +51,13 @@ exports.updateWorkInfo = async (req, res, next) => {
 
 exports.deleteWorkInfo = async (req, res, next) => {
   try {
-    const workInfo = await WorkInfoModel.deleteOne({
+    const filter = {
       workInfoId: req.params.workInfoId,
-    });
-    res.status(201).send({
-      data: workInfo,
-      message: "Working Infomation deleted successfully!",
-      success: true,
-    });
+    }
+    const workProcess = await WorkInfoModel.find(filter).populate("user");
+
+    verifyIfUserCanDelete(req, res, filter, workProcess, WorkInfoModel);
+
   } catch (e) {
     res.status(401).send({
       message: "Working Infomation deleted unsuccessfully!",

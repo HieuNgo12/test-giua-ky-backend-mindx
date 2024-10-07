@@ -1,8 +1,9 @@
+const { verifyIfUserCanDelete } = require("../middlewares/authentication");
 const PersonalInfoModel = require("../models/personalInfo");
 
 exports.getPersonalInfo = (req, res, next) => {
   try {
-    AdditionalInfoModel.find({}).then((data) =>
+    PersonalInfoModel.find({}).then((data) =>
       res.status(200).send({
         data: data,
         message: "Working Infomation found successfully!",
@@ -20,9 +21,9 @@ exports.getPersonalInfo = (req, res, next) => {
 
 exports.createPersonalInfo = async (req, res, next) => {
   try {
-    const workInfo = await WorkInfoModel.create(req.body);
+    const personalInfo = await PersonalInfoModel.create(req.body);
     res.status(201).send({
-      data: workInfo,
+      data: personalInfo,
       message: "Working Infomation created successfully!",
       success: true,
     });
@@ -37,12 +38,12 @@ exports.createPersonalInfo = async (req, res, next) => {
 exports.updatePersonalInfo = async (req, res, next) => {
   try {
     const filter = {
-      personalProjectId: req.params.personalProjectId,
+      personalInfoId: req.params.personalInfoId,
     };
     const personalInfo = await PersonalInfoModel.find(filter).populate("user");
     verifyIfUser(req, res, filter, personalInfo, PersonalInfoModel);
     res.status(201).send({
-      data: workInfo,
+      data: personalInfo,
       message: "Working Infomation created successfully!",
       success: true,
     });
@@ -57,12 +58,10 @@ exports.updatePersonalInfo = async (req, res, next) => {
 
 exports.deletePersonalInfo = async (req, res, next) => {
   try {
-    const workInfo = await WorkInfoModel.deleteOne(req.params.personalInfoId);
-    res.status(201).send({
-      data: workInfo,
-      message: "Working Infomation created successfully!",
-      success: true,
-    });
+    const filter = { personalInfoId: req.params.personalInfoId };
+    const personalInfo = await PersonalInfoModel.find(filter).populate("user");
+
+    verifyIfUserCanDelete(req, res, filter, personalInfo, PersonalInfoModel);
   } catch (e) {
     res.status(401).send({
       error: e,

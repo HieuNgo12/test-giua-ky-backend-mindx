@@ -146,6 +146,7 @@ exports.logout = async (req, res, next) => {
     const cookie = authHeader.split("=")[1];
     const accessToken = cookie.split(";")[0];
     res.setHeader("Clear-Site-Data", '"cookies"');
+    req.headers.authorization = '';
     res.status(200).json({ message: "You are logged out!" });
   } catch (err) {
     res.status(500).json({

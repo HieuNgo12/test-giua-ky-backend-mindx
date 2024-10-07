@@ -6,7 +6,10 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var authRouter = require("./routes/auth");
+var personalProjectRouter = require("./routes/personalProject");
+var workInfoRouter = require("./routes/workInfoRouter");
+var workProcessRouter = require("./routes/workProcessRouter");
+var additionalInfoRouter = require("./routes/additionalInfoRouter");
 
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -42,6 +45,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/", personalProjectRouter);
+app.use("/", workInfoRouter);
+app.use("/", workProcessRouter);
+app.use("/", additionalInfoRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

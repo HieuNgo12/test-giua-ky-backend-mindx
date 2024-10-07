@@ -36,26 +36,11 @@ exports.createPersonalInfo = async (req, res, next) => {
 };
 exports.updatePersonalInfo = async (req, res, next) => {
   try {
-    const workInfo = await PersonalInfoModel.find({
-      personalInfoId: req.params.personalInfoId,
-    }).populate("user");
-    const currentToken = req.header("Authorization")[1];
-    if (!currentToken) {
-      return res.status(401).send({ err: "Token is expired" });
-    }
-    jwt.verify(currentToken, "secret-key", async (err, decoded) => {
-      console.log(decoded.username); // bar
-      if (decoded.username === workInfo.user.username) {
-        await PersonalInfoModel.find({
-          personalInfoId: req.params.personalInfoId,
-        }).update(req.body);
-        res.status(201).send({
-          data: workInfo,
-          message: "Working Infomation updated successfully!",
-          success: true,
-        });
-      }
-    });
+    const filter = {
+      personalProjectId: req.params.personalProjectId,
+    };
+    const personalInfo = await PersonalInfoModel.find(filter).populate("user");
+    verifyIfUser(req, res, filter, personalInfo, PersonalInfoModel);
     res.status(201).send({
       data: workInfo,
       message: "Working Infomation created successfully!",
@@ -72,7 +57,7 @@ exports.updatePersonalInfo = async (req, res, next) => {
 
 exports.deletePersonalInfo = async (req, res, next) => {
   try {
-    const workInfo = await WorkInfoModel.create(req.body);
+    const workInfo = await WorkInfoModel.deleteOne(req.params.personalInfoId);
     res.status(201).send({
       data: workInfo,
       message: "Working Infomation created successfully!",

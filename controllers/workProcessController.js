@@ -1,8 +1,9 @@
 const WorkInfoModel = require("../models/workInfo");
+const WorkProcessModel = require("../models/workProcess");
 
-exports.getWorkInfo = async (req, res, next) => {
+exports.getWorkProcess = async (req, res, next) => {
   try {
-    WorkInfoModel.find({}).then((data) =>
+    WorkProcessModel.find({}).then((data) =>
       res.status(200).send({
         data: data,
         message: "Working Infomation found successfully!",
@@ -18,7 +19,7 @@ exports.getWorkInfo = async (req, res, next) => {
   }
 };
 
-exports.createWorkInfo = async (req, res, next) => {
+exports.createWorkProcess = async (req, res, next) => {
   try {
     const workInfo = await WorkInfoModel.create(req.body);
     res.status(201).send({
@@ -34,7 +35,7 @@ exports.createWorkInfo = async (req, res, next) => {
     });
   }
 };
-exports.updateWorkInfo = async (req, res, next) => {
+exports.updateWorkProcess = async (req, res, next) => {
   try {
     const filter = {
         workInfoId: req.params.workInfoId,
@@ -49,7 +50,7 @@ exports.updateWorkInfo = async (req, res, next) => {
   }
 };
 
-exports.deleteWorkInfo = async (req, res, next) => {
+exports.deleteWorkProcess = async (req, res, next) => {
   try {
     const workInfo = await WorkInfoModel.deleteOne({
       workInfoId: req.params.workInfoId,

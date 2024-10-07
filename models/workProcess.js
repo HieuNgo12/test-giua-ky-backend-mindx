@@ -12,5 +12,5 @@ const workProcessModel = new mongoose.Schema({
 });
 
 // định nghĩa model cần truyền với phương thức model và các tham số lần lượt: tên collections, schema của document
-const WorkInfoModel = mongoose.model("workProcessModel", workProcessModel);
-module.exports =  WorkInfoModel;
+const WorkProcessModel = mongoose.model("workProcessModel", workProcessModel);
+module.exports =  WorkProcessModel;

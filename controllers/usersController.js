@@ -22,7 +22,20 @@ exports.login = async (req, res, next) => {
   if (hashingPasswordLogin !== currentUser.password)
     throw new Error("Wrong username or password!");
 
+  const token = jwt.sign(currentUser, "secret-key", { expiresIn: "1h" });
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: 3600000,
+  });
+
+  req.headers.authorization = `Bearer + ${token}`;
+
+
   res.status(201).send({
+    data: token,
     message: "Login successfully!",
     email,
   });

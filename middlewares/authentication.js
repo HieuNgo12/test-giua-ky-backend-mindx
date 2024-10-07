@@ -13,6 +13,11 @@ exports.verifyIfUser = (req, res, filter, data, Model) => {
         message: "Working Infomation updated successfully!",
         success: true,
       });
+    } else {
+        res.status(401).send({
+            message: "Must login to Profile User in order to update!",
+            success: false,
+          });
     }
   });
 };

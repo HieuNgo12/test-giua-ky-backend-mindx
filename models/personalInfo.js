@@ -8,7 +8,7 @@ const personalInfo = new mongoose.Schema({
   academicProcess: { type: String },
   pesronalInfoId: { type: String },
   user: {
-    type: mongoose.Schema.Types.ObjectId, // Make sure this line is correct
+    type: String, // Make sure this line is correct
 
     ref: "user",
   },

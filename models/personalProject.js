@@ -6,7 +6,7 @@ const personalProject = new mongoose.Schema({
   projectRole: { type: String, enum: ["Developer", "Tester"] },
   projectId: { type: String },
   user: {
-    type: mongoose.Schema.Types.ObjectId, // Make sure this line is correct
+    type: String, // Make sure this line is correct
     ref: "user",
   },
 });

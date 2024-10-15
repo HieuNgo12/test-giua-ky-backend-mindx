@@ -1,3 +1,4 @@
+const { verifyIfUser } = require("../middlewares/authentication");
 const PersonalProject = require("../models/personalProject");
 
 exports.getPersonalProject = async (req, res, next) => {
@@ -39,9 +40,7 @@ exports.updatePersonalProject = async (req, res, next) => {
     const filter = {
       personalProjectId: req.params.personalProjectId,
     };
-    const personalInfo = await PersonalProject.find(filter).populate(
-      "user"
-    );
+    const personalInfo = await PersonalProject.find(filter).populate("user");
     verifyIfUser(req, res, filter, personalInfo, PersonalProject);
   } catch (e) {
     res.status(401).send({
@@ -56,12 +55,8 @@ exports.deletePersonalProject = async (req, res, next) => {
     const filter = {
       workInfoId: req.params.workInfoId,
     };
-    const personalProject = await PersonalProject.find(filter).populate(
-        "user"
-      );
+    const personalProject = await PersonalProject.find(filter).populate("user");
     verifyIfUserCanDelete(req, res, filter, personalProject, PersonalProject);
-
-
   } catch (e) {
     res.status(401).send({
       message: "Working Infomation deleted unsuccessfully!",
